@@ -39,8 +39,8 @@ export const SignForm = styled.form`
         padding: 10px;
         border-radius: 3px;
         border: 1px solid rgba(0, 0, 0, 0.3);
-        background-color: 1px solid rgba(0, 0, 0, 0.1);
-        color: #000;
+        background-color: rgba(0, 0, 0, 0.1);
+        color: #fff;
         margin-top: 8px;
         transition: border 0.15s ease;
         font-size: 16px;
