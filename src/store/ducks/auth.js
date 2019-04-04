@@ -27,7 +27,6 @@ export const request = state => {
 };
 
 export const success = (state, { token }) => {
-    console.log(token);
     return state.merge({ signedIn: true, loading: false, token });
 };
 
