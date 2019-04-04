@@ -19,6 +19,6 @@ export function* signIn({ email, password }) {
                 message: "Verifique seu e-mail ou senha!"
             })
         );
-        yield put(AuthActions.signInFailure("Vish man, deu problemas"));
+        yield put(AuthActions.signInFailure());
     }
 }
