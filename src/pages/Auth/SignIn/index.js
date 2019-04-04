@@ -28,6 +28,7 @@ class SignIn extends Component {
 
     render() {
         const { email, password } = this.state;
+        const { auth } = this.props;
 
         return (
             <Container>
