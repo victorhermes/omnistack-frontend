@@ -53,6 +53,11 @@ const Button = styled.button.attrs({
     text-transform: uppercase;
     font-weight: 700;
 
+    &disabled,
+    &[disabled] {
+        display: none;
+    }
+
     ${props => sizes[props.size || "default"]};
     ${props => colors[props.color || "default"]}
 

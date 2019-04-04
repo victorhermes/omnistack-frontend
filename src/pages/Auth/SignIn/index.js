@@ -51,8 +51,12 @@ class SignIn extends Component {
                         onChange={this.handleInputChange}
                     />
 
-                    <Button size="big" type="submit">
-                        Entrar
+                    <Button
+                        size="big"
+                        type="submit"
+                        disabled={!this.state.email || !this.state.password}
+                    >
+                        {auth.loading ? "CARREGANDO..." : "ENTRAR"}
                     </Button>
                 </SignForm>
             </Container>
@@ -60,10 +64,14 @@ class SignIn extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+
 const mapDispatchToProps = dispatch =>
     bindActionCreators(AuthActions, dispatch);
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(SignIn);
