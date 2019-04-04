@@ -16,7 +16,7 @@ export function* signIn({ email, password }) {
             toastrActions.add({
                 type: "error",
                 title: "Falha no login",
-                message: "Verifique seu e-mail ou senha!"
+                message: "Verifique seu e-mail ou senha"
             })
         );
         yield put(AuthActions.signInFailure());
