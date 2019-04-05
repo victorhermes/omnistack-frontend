@@ -1,5 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
 
-const Main = () => <h1>Main</h1>;
+class Main extends Component {
+    componentDidMount() {}
+
+    render() {
+        return <h1> sadkasdk </h1>;
+    }
+}
 
 export default Main;
