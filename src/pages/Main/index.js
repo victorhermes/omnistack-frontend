@@ -1,10 +1,16 @@
 import React, { Component } from "react";
+import TeamSwitcher from "~/components/TeamSwitcher";
+import { Container } from "./styles";
 
 class Main extends Component {
     componentDidMount() {}
 
     render() {
-        return <h1> sadkasdk </h1>;
+        return (
+            <Container>
+                <TeamSwitcher />
+            </Container>
+        );
     }
 }
 
