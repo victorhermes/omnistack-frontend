@@ -48,6 +48,7 @@ class SignIn extends Component {
                         type="password"
                         name="password"
                         value={password}
+                        id="showPassword"
                         onChange={this.handleInputChange}
                     />
 
