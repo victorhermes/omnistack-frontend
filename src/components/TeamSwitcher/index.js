@@ -3,7 +3,10 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import TeamsActions from "~/store/ducks/teams";
-import { Container, TeamList, Team } from "./styles";
+import { NewTeam, Container, TeamList, Team } from "./styles";
+import Button from "~/styles/components/Button";
+
+import Modal from "~/components/Modal";
 
 class TeamSwitcher extends Component {
     static propTypes = {
@@ -23,7 +26,7 @@ class TeamSwitcher extends Component {
     };
 
     render() {
-        const { teams } = this.props;
+        const { teams, openTeamModal, closeTeamModal } = this.props;
 
         return (
             <Container>
@@ -41,6 +44,31 @@ class TeamSwitcher extends Component {
                             />
                         </Team>
                     ))}
+
+                    <NewTeam onClick={openTeamModal}>NOVO</NewTeam>
+
+                    {teams.teamModalOpen && (
+                        <Modal>
+                            <h1> Criar time </h1>
+
+                            <form onSubmit={() => {}}>
+                                <span>NOME</span>
+                                <input name="newTeam" />
+
+                                <Button size="big" type="submit">
+                                    Salvar
+                                </Button>
+
+                                <Button
+                                    onClick={closeTeamModal}
+                                    size="small"
+                                    color="gray"
+                                >
+                                    Cancelar
+                                </Button>
+                            </form>
+                        </Modal>
+                    )}
                 </TeamList>
             </Container>
         );
