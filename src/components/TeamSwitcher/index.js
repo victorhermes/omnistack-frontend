@@ -13,6 +13,10 @@ class TeamSwitcher extends Component {
         getTeamsRequest: PropTypes.func.isRequired
     };
 
+    state = {
+        newTeam: ""
+    };
+
     componentDidMount() {
         const { getTeamsRequest } = this.props;
 
@@ -25,8 +29,24 @@ class TeamSwitcher extends Component {
         selectTeam(team);
     };
 
+    handleInputChange = e => {
+        this.setState({ [e.target.name]: e.target.value });
+    };
+
+    handleCreateTeam = e => {
+        e.preventDefault();
+
+        const { createTeamRequest } = this.props;
+        const { newTeam } = this.state;
+
+        createTeamRequest(newTeam);
+
+        this.setState({newTeam: ''})
+    };
+
     render() {
         const { teams, openTeamModal, closeTeamModal } = this.props;
+        const { newTeam } = this.state;
 
         return (
             <Container>
@@ -51,9 +71,13 @@ class TeamSwitcher extends Component {
                         <Modal>
                             <h1> Criar time </h1>
 
-                            <form onSubmit={() => {}}>
+                            <form onSubmit={this.handleCreateTeam}>
                                 <span>NOME</span>
-                                <input name="newTeam" />
+                                <input
+                                    name="newTeam"
+                                    value={newTeam}
+                                    onChange={this.handleInputChange}
+                                />
 
                                 <Button size="big" type="submit">
                                     Salvar
@@ -62,7 +86,7 @@ class TeamSwitcher extends Component {
                                 <Button
                                     onClick={closeTeamModal}
                                     size="small"
-                                    color="gray"
+                                    color="grey"
                                 >
                                     Cancelar
                                 </Button>
