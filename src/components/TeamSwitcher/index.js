@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import TeamsActions from "~/store/ducks/teams";
-import { NewTeam, Container, TeamList, Team } from "./styles";
+import AuthActions from "~/store/ducks/auth";
+import { NewTeam, Container, TeamList, Team, Logout } from "./styles";
 import Button from "~/styles/components/Button";
 
 import Modal from "~/components/Modal";
@@ -41,11 +42,11 @@ class TeamSwitcher extends Component {
 
         createTeamRequest(newTeam);
 
-        this.setState({newTeam: ''})
+        this.setState({ newTeam: "" });
     };
 
     render() {
-        const { teams, openTeamModal, closeTeamModal } = this.props;
+        const { teams, openTeamModal, closeTeamModal, signOut } = this.props;
         const { newTeam } = this.state;
 
         return (
@@ -94,6 +95,8 @@ class TeamSwitcher extends Component {
                         </Modal>
                     )}
                 </TeamList>
+
+                <Logout onClick={signOut}>SAIR</Logout>
             </Container>
         );
     }
@@ -104,7 +107,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-    bindActionCreators(TeamsActions, dispatch);
+    bindActionCreators({ ...TeamsActions, ...AuthActions }, dispatch);
 
 export default connect(
     mapStateToProps,

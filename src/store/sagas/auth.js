@@ -24,3 +24,17 @@ export function* signIn({ email, password }) {
         yield put(AuthActions.signInFailure());
     }
 }
+
+export function* signOut() {
+    localStorage.removeItem("@Token:token");
+    localStorage.removeItem("@Token:team");
+
+    yield put(push("/signin"));
+    yield put(
+        toastrActions.add({
+            type: "success",
+            title: "Sessão encerrada",
+            message: "Esperamos você em breve :)"
+        })
+    );
+}

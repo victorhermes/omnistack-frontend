@@ -18,7 +18,7 @@ export function* createTeam({ name }) {
         yield put(
             toastrActions.add({
                 type: "success",
-                title: "Time criado com sucesso",
+                title: "Time criado com sucesso"
             })
         );
     } catch (err) {
