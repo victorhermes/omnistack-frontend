@@ -21,12 +21,18 @@ export default Creators;
 export const INITIAL_STATE = Immutable({
     data: [],
     teamModalOpen: false,
-    active: JSON.parse(localStorage.getItem("@Moom:team")) || null
+    active: JSON.parse(localStorage.getItem("@Moom:team")) || null,
+    loading: false
 });
 
 /* Reducers */
 
-export const getSuccess = (state, { data }) => state.merge({ data });
+export const request = state => {
+    return state.merge({ loading: true });
+};
+
+export const getSuccess = (state, { data }) =>
+    state.merge({ data, loading: false });
 
 export const selectTeam = (state, { team }) => {
     localStorage.setItem("@Moom:team", JSON.stringify(team));
@@ -44,6 +50,7 @@ export const createSuccess = (state, { team }) =>
 /* Reducers to types */
 
 export const reducer = createReducer(INITIAL_STATE, {
+    [Types.GET_TEAMS_REQUEST]: request,
     [Types.GET_TEAMS_SUCCESS]: getSuccess,
     [Types.SELECT_TEAM]: selectTeam,
     [Types.OPEN_TEAM_MODAL]: openModal,
