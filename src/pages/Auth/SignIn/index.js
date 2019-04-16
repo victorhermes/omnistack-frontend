@@ -7,7 +7,7 @@ import { withFormik } from "formik";
 import * as Yup from "yup";
 
 import Button from "~/styles/components/Button";
-import { Container, SignForm } from "../styles";
+import { Container, SignForm, Error } from "../styles";
 
 const SignIn = ({
     handleSubmit,
@@ -29,7 +29,7 @@ const SignIn = ({
                 value={values.email}
             />
 
-            {!!errors.email && <span>{errors.email}</span>}
+            {!!errors.email && <Error>{errors.email}</Error>}
 
             <span>SENHA</span>
             <input
@@ -39,7 +39,18 @@ const SignIn = ({
                 onChange={handleChange}
                 values={values.password}
             />
-            {!!errors.password && <span>{errors.password}</span>}
+            {!!errors.password && <Error>{errors.password}</Error>}
+
+            {/* <span>CONFIRMAÇÃO DE SENHA</span>
+            <input
+                type="password"
+                name="passwordConfirm"
+                onChange={handleChange}
+                values={values.passwordConfirm}
+            />
+            {!!errors.passwordConfirm && (
+                <Error>{errors.passwordConfirm}</Error>
+            )} */}
             <Button
                 size="big"
                 type="submit"
@@ -66,17 +77,31 @@ export default compose(
     withFormik({
         mapPropsToValues: () => ({
             email: "",
-            password: ""
+            password: "",
+            passwordConfirm: ""
         }),
 
         validateOnChange: true,
-        validateOnBlur: true,
+        validateOnBlur: false,
 
         validationSchema: Yup.object().shape({
             email: Yup.string()
                 .email("E-mail inválido")
                 .required("Campo obrigatório"),
-            password: Yup.string().required("Campo obrigatório")
+            password: Yup.string()
+                .required("Campo obrigatório")
+                .min(5, "Senha muito curta!")
+                .max(20, "Senha muito longa!")
+            /*.matches(/[a-z]/, "Digita ao menos uma letra minúscula")
+                .matches(/[A-Z]/, "Digite ao menos uma letra maiúscula")
+                .matches(
+                    /[a-zA-Z]+[^a-zA-Z\s]+/,
+                    "Ao menos 1 número ou caractere especial (@, !, #, etc)"
+                )
+            passwordConfirm: Yup.string().oneOf(
+                [Yup.ref("password"), null],
+                "Senhas não conferem"
+            )*/
         }),
 
         handleSubmit: (values, { props }) => {
