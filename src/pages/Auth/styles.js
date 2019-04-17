@@ -61,3 +61,13 @@ export const Error = styled.p`
     padding: 0;
     font-size: 13px;
 `;
+
+export const Checkbox = styled.label`
+    display: flex;
+    align-items: center;
+    justify-content: left;
+
+    p {
+        padding: 5px 0 0 10px;
+    }
+`;

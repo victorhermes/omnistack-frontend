@@ -4,7 +4,7 @@ import Immutable from "seamless-immutable";
 /* Types & Action Creators */
 
 const { Types, Creators } = createActions({
-    signInRequest: ["email", "password"],
+    signInRequest: ["email", "password", "remember"],
     signInSuccess: ["token", "email"],
     signInFailure: null,
     signOut: null
@@ -19,7 +19,8 @@ export const INITIAL_STATE = Immutable({
     signedIn: !!localStorage.getItem("@Token:token"),
     token: localStorage.getItem("@Token:token") || null,
     loading: false,
-    email: localStorage.getItem("@Token:email") || null
+    email: localStorage.getItem("@Token:email") || null,
+    remember: null
 });
 
 /* Reducers */

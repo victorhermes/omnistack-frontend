@@ -5,11 +5,14 @@ import api from "~/services/api";
 
 import AuthActions from "../ducks/auth";
 
-export function* signIn({ email, password }) {
+export function* signIn({ email, password, remember }) {
     try {
         const response = yield call(api.post, "sessions", { email, password });
 
-        localStorage.setItem("@Token:email", email);
+        if (!!remember === true) {
+            localStorage.setItem("@Token:email", email);
+        }
+
         localStorage.setItem("@Token:token", response.data.token);
 
         yield put(AuthActions.signInSuccess(response.data.token));

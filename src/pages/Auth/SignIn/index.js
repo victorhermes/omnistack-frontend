@@ -7,14 +7,13 @@ import { withFormik } from "formik";
 import * as Yup from "yup";
 import Gif from "~/elips.svg";
 import Button from "~/styles/components/Button";
-import { Container, SignForm, Error } from "../styles";
+import { Container, SignForm, Error, Checkbox } from "../styles";
 
 const SignIn = ({
     handleSubmit,
     errors,
     values,
     handleChange,
-    setFieldValue,
     auth,
     email
 }) => (
@@ -53,12 +52,22 @@ const SignIn = ({
             {!!errors.passwordConfirm && (
                 <Error>{errors.passwordConfirm}</Error>
             )} */}
+
+            <Checkbox>
+                <input
+                    type="checkbox"
+                    name="remember"
+                    onChange={handleChange}
+                />
+                <p>Lembrar acesso?</p>
+            </Checkbox>
+
             <Button
                 size="big"
                 type="submit"
                 /*disabled={!values.email || !values.password}*/
             >
-                {auth ? <img src={Gif} title="this asd moves" /> : "ENTRAR"}
+                {auth ? <img src={Gif} alt="Carregando..." /> : "ENTRAR"}
             </Button>
         </SignForm>
     </Container>
@@ -78,10 +87,11 @@ export default compose(
         mapDispatchToProps
     ),
     withFormik({
-        mapPropsToValues: ({email}) => ({
+        mapPropsToValues: ({ email }) => ({
             email: email,
             password: "",
-            passwordConfirm: ""
+            passwordConfirm: "",
+            remember: null
         }),
 
         validateOnChange: true,
@@ -108,10 +118,10 @@ export default compose(
         }),
 
         handleSubmit: (values, { props }) => {
-            const { email, password } = values;
+            const { email, password, remember } = values;
             const { signInRequest } = props;
 
-            signInRequest(email, password);
+            signInRequest(email, password, remember);
         }
     })
 )(SignIn);
