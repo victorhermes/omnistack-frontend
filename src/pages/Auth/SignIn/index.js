@@ -87,8 +87,8 @@ export default compose(
         mapDispatchToProps
     ),
     withFormik({
-        mapPropsToValues: ({ email }) => ({
-            email: email,
+        mapPropsToValues: () => ({
+            email: localStorage.getItem("@Token:email") || "",
             password: "",
             passwordConfirm: "",
             remember: null
