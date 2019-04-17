@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import AuthActions from "~/store/ducks/auth";
 import { withFormik } from "formik";
 import * as Yup from "yup";
-
+import Gif from "~/elips.svg";
 import Button from "~/styles/components/Button";
 import { Container, SignForm, Error } from "../styles";
 
@@ -15,11 +15,12 @@ const SignIn = ({
     values,
     handleChange,
     setFieldValue,
-    auth
+    auth,
+    email
 }) => (
     <Container>
         <SignForm onSubmit={handleSubmit}>
-            <h1>Boas vindas</h1>
+            <h1>Hermes</h1>
 
             <span>E-MAIL</span>
             <input
@@ -27,6 +28,7 @@ const SignIn = ({
                 name="email"
                 onChange={handleChange}
                 value={values.email}
+                autoFocus
             />
 
             {!!errors.email && <Error>{errors.email}</Error>}
@@ -56,14 +58,15 @@ const SignIn = ({
                 type="submit"
                 /*disabled={!values.email || !values.password}*/
             >
-                {auth ? "CARREGANDO..." : "ENTRAR"}
+                {auth ? <img src={Gif} title="this asd moves" /> : "ENTRAR"}
             </Button>
         </SignForm>
     </Container>
 );
 
 const mapStateToProps = state => ({
-    auth: state.auth.loading
+    auth: state.auth.loading,
+    email: state.auth.email
 });
 
 const mapDispatchToProps = dispatch =>
@@ -75,8 +78,8 @@ export default compose(
         mapDispatchToProps
     ),
     withFormik({
-        mapPropsToValues: () => ({
-            email: "",
+        mapPropsToValues: ({email}) => ({
+            email: email,
             password: "",
             passwordConfirm: ""
         }),

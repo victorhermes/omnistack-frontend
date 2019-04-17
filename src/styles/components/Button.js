@@ -52,6 +52,9 @@ const Button = styled.button.attrs({
     padding: 0 10px;
     text-transform: uppercase;
     font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &disabled,
     &[disabled] {

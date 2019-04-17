@@ -9,6 +9,7 @@ export function* signIn({ email, password }) {
     try {
         const response = yield call(api.post, "sessions", { email, password });
 
+        localStorage.setItem("@Token:email", email);
         localStorage.setItem("@Token:token", response.data.token);
 
         yield put(AuthActions.signInSuccess(response.data.token));
