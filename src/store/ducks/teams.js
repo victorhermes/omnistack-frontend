@@ -37,7 +37,7 @@ export const getSuccess = (state, { data }) =>
 export const selectTeam = (state, { team }) => {
     localStorage.setItem("@Moom:team", JSON.stringify(team));
 
-    return state.merge({ team });
+    return state.merge({ active: team });
 };
 
 export const openModal = state => state.merge({ teamModalOpen: true });
