@@ -1,48 +1,65 @@
-import React from "react";
-
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 import Button from "~/styles/components/Button";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import ProjectsActions from "~/store/ducks/projects";
 import { Container, Project } from "./styles";
 
-const Projects = ({ activeTeam }) => {
-    if (!activeTeam) return null;
+class Projects extends Component {
+    static propTypes = {
+        activeTeam: PropTypes.shape({
+            name: PropTypes.string
+        }).isRequired
+    };
 
-    return (
-        <Container>
-            <header>
-                <h1>{activeTeam.name}</h1>
+    componentDidMount() {
+        const { getProjectRequest, activeTeam } = this.props;
 
-                <div>
-                    <Button size="small" onClick={() => {}}>
-                        + Novo
-                    </Button>
-                    <Button size="small" onClick={() => {}}>
-                        Membros
-                    </Button>
-                </div>
-            </header>
+        if (activeTeam) {
+            getProjectRequest();
+        }
+    }
 
-            <Project>
-                <p>Aplicação com React Native</p>
-            </Project>
+    render() {
+        const { activeTeam, projects } = this.props;
 
-            <Project>
-                <p>Aplicação com React Native</p>
-            </Project>
+        if (!activeTeam) return null;
 
-            <Project>
-                <p>Aplicação com React Native</p>
-            </Project>
+        return (
+            <Container>
+                <header>
+                    <h1>{activeTeam.name}</h1>
 
-            <Project>
-                <p>Aplicação com React Native</p>
-            </Project>
-        </Container>
-    );
-};
+                    <div>
+                        <Button size="small" onClick={() => {}}>
+                            + Novo
+                        </Button>
+                        <Button size="small" onClick={() => {}}>
+                            Membros
+                        </Button>
+                    </div>
+                </header>
+
+                {projects.data.map(project => (
+                    <Project key={project.id}>
+                        <p>{project.title}</p>
+                    </Project>
+                ))}
+            </Container>
+        );
+    }
+}
 
 const mapStateToProps = state => ({
-    activeTeam: state.teams.active
+    activeTeam: state.teams.active,
+    projects: state.projects
 });
 
-export default connect(mapStateToProps)(Projects);
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(ProjectsActions, dispatch);
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Projects);
