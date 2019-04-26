@@ -1,10 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+import MembersActions from "~/store/ducks/members";
 
 import Button from "~/styles/components/Button";
 import Modal from "~/components/Modal";
 import { MembersList } from "./styles";
 
-const Members = () => (
+const Members = ({ closeMembersModal }) => (
     <Modal size="big">
         <h1>Membros</h1>
 
@@ -15,11 +19,21 @@ const Members = () => (
                 </li>
             </MembersList>
 
-            <Button onClick={() => {}} filled={false} color="grey">
+            <Button onClick={closeMembersModal} filled={false} color="grey">
                 Cancelar
             </Button>
         </form>
     </Modal>
 );
 
-export default Members;
+const mapStateToProps = state => ({
+    members: state.members
+});
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(MembersActions, dispatch);
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Members);

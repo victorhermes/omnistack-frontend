@@ -17,5 +17,10 @@ export const MembersList = styled.ul`
         strong {
             font-size: 18px;
         }
+
+        > div {
+            width: 320px;
+            color: #666;
+        }
     }
 `;

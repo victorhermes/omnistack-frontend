@@ -6,6 +6,7 @@ import { bindActionCreators } from "redux";
 import ProjectsActions from "~/store/ducks/projects";
 import MembersActions from "~/store/ducks/members";
 import { Container, Project } from "./styles";
+import Members from "~/components/Members";
 import Modal from "~/components/Modal";
 
 class Projects extends Component {
@@ -47,8 +48,7 @@ class Projects extends Component {
             openProjectModal,
             closeProjectModal,
             members,
-            openMembersModal,
-            closeMembersModal
+            openMembersModal
         } = this.props;
 
         const { newProject } = this.state;
@@ -105,18 +105,7 @@ class Projects extends Component {
                     </Modal>
                 )}
 
-                {members.membersModalOpen && (
-                    <Modal>
-                        <h1>Membros</h1>
-                        <Button
-                            size="big"
-                            color="grey"
-                            onClick={closeMembersModal}
-                        >
-                            Fechar
-                        </Button>
-                    </Modal>
-                )}
+                {members.membersModalOpen && <Members />}
             </Container>
         );
     }
