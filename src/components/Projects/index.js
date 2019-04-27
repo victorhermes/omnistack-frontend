@@ -32,6 +32,13 @@ class Projects extends Component {
         this.setState({ [e.target.name]: e.target.value });
     };
 
+    getId = e => {
+        const { deleteProjectRequest } = this.props;
+        const id = e.target.value;
+
+        deleteProjectRequest(id);
+    };
+
     handleCreateProject = e => {
         e.preventDefault();
 
@@ -39,6 +46,8 @@ class Projects extends Component {
         const { newProject } = this.state;
 
         createProjectRequest(newProject);
+
+        this.setState({ newProject: "" });
     };
 
     render() {
@@ -70,11 +79,22 @@ class Projects extends Component {
                     </div>
                 </header>
 
-                {projects.data.map(project => (
-                    <Project key={project.id}>
-                        <p>{project.title}</p>
-                    </Project>
-                ))}
+                {projects.data.length ? (
+                    projects.data.map(project => (
+                        <Project key={project.id}>
+                            <p>{project.title}</p>
+                            <button
+                                onClick={this.getId}
+                                name="but"
+                                value={project.id}
+                            >
+                                X
+                            </button>
+                        </Project>
+                    ))
+                ) : (
+                    <h1>Nada por aqui</h1>
+                )}
 
                 {projects.projectModalOpen && (
                     <Modal>
@@ -88,6 +108,7 @@ class Projects extends Component {
                                 value={newProject}
                                 onChange={this.handleInputChange}
                                 type="newProject"
+                                autoFocus
                             />
 
                             <Button size="big" type="submit">

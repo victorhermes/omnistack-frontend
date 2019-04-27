@@ -9,7 +9,8 @@ const { Types, Creators } = createActions({
     openProjectModal: null,
     closeProjectModal: null,
     createProjectRequest: ["title"],
-    createProjectSuccess: ["project"]
+    createProjectSuccess: ["project"],
+    deleteProjectRequest: ["id"]
 });
 
 export const ProjectsTypes = Types;

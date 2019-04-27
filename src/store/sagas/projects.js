@@ -15,11 +15,26 @@ export function* createProjects({ title }) {
 
         yield put(ProjectsActions.createProjectSuccess(response.data));
         yield put(ProjectsActions.closeProjectModal());
+    } catch (err) {
+        yield put(
+            toastrActions.add({
+                type: "error",
+                title: "Houve um problema!"
+            })
+        );
+    }
+}
+
+export function* deleteProject({ id }) {
+    try {
+        yield call(api.delete, `projects/${id}`);
+        const response = yield call(api.get, "projects");
+        yield put(ProjectsActions.getProjectSuccess(response.data));
 
         yield put(
             toastrActions.add({
                 type: "success",
-                title: "Projeto criado com sucesso"
+                title: "Projeto deletado com sucesso"
             })
         );
     } catch (err) {
