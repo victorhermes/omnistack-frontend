@@ -10,7 +10,8 @@ const { Types, Creators } = createActions({
     closeProjectModal: null,
     createProjectRequest: ["title"],
     createProjectSuccess: ["project"],
-    deleteProjectRequest: ["id"]
+    deleteProjectRequest: ["id"],
+    deleteProjectSuccess: ["id"]
 });
 
 export const ProjectsTypes = Types;
@@ -34,11 +35,18 @@ export const closeModal = state => state.merge({ projectModalOpen: false });
 export const createSuccess = (state, { project }) =>
     state.merge({ data: [...state.data, project] });
 
+export const deleteSuccess = (state, { id }) =>
+    state.merge({
+        ...state,
+        data: state.data.filter(data => data.id !== parseInt(id))
+    });
+
 /* Reducers to types */
 
 export const reducer = createReducer(INITIAL_STATE, {
     [Types.GET_PROJECT_SUCCESS]: success,
     [Types.OPEN_PROJECT_MODAL]: openModal,
     [Types.CLOSE_PROJECT_MODAL]: closeModal,
-    [Types.CREATE_PROJECT_SUCCESS]: createSuccess
+    [Types.CREATE_PROJECT_SUCCESS]: createSuccess,
+    [Types.DELETE_PROJECT_SUCCESS]: deleteSuccess
 });

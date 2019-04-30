@@ -7,7 +7,8 @@ import { withFormik } from "formik";
 import * as Yup from "yup";
 import Gif from "~/elips.svg";
 import Button from "~/styles/components/Button";
-import { Container, SignForm, Error, Checkbox } from "../styles";
+import Error from "~/styles/components/Error";
+import { Container, SignForm, Checkbox } from "../styles";
 
 const SignIn = ({
     handleSubmit,

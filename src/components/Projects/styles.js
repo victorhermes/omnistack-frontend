@@ -30,8 +30,20 @@ export const Project = styled.div`
     border-radius: 5px;
     margin: 0 0 20px;
     padding: 20px;
+    display: flex;
+    justify-content: space-between;
 
     p {
         font-size: 18px;
     }
+`;
+
+export const Delete = styled.button`
+    background: grey;
+    border: 0;
+    padding: 10px;
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+    color: #fff;
 `;

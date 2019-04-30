@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { compose } from "redux";
+import { withFormik } from "formik";
+import * as Yup from "yup";
 import Button from "~/styles/components/Button";
+import Error from "~/styles/components/Error";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import ProjectsActions from "~/store/ducks/projects";
 import MembersActions from "~/store/ducks/members";
-import { Container, Project } from "./styles";
+import { Container, Project, Delete } from "./styles";
 import Members from "~/components/Members";
 import Modal from "~/components/Modal";
 
@@ -16,9 +20,9 @@ class Projects extends Component {
         }).isRequired
     };
 
-    state = {
+    /*state = {
         newProject: ""
-    };
+    };*/
 
     componentDidMount() {
         const { getProjectRequest, activeTeam } = this.props;
@@ -28,18 +32,17 @@ class Projects extends Component {
         }
     }
 
-    handleInputChange = e => {
+    /*handleInputChange = e => {
         this.setState({ [e.target.name]: e.target.value });
-    };
+    };*/
 
     getId = e => {
         const { deleteProjectRequest } = this.props;
         const id = e.target.value;
-
         deleteProjectRequest(id);
     };
 
-    handleCreateProject = e => {
+    /*handleCreateProject = e => {
         e.preventDefault();
 
         const { createProjectRequest } = this.props;
@@ -48,7 +51,7 @@ class Projects extends Component {
         createProjectRequest(newProject);
 
         this.setState({ newProject: "" });
-    };
+    };*/
 
     render() {
         const {
@@ -57,10 +60,12 @@ class Projects extends Component {
             openProjectModal,
             closeProjectModal,
             members,
-            openMembersModal
+            openMembersModal,
+            handleChange,
+            values,
+            handleSubmit,
+            errors
         } = this.props;
-
-        const { newProject } = this.state;
 
         if (!activeTeam) return null;
 
@@ -83,13 +88,9 @@ class Projects extends Component {
                     projects.data.map(project => (
                         <Project key={project.id}>
                             <p>{project.title}</p>
-                            <button
-                                onClick={this.getId}
-                                name="but"
-                                value={project.id}
-                            >
+                            <Delete onClick={this.getId} value={project.id}>
                                 X
-                            </button>
+                            </Delete>
                         </Project>
                     ))
                 ) : (
@@ -100,16 +101,22 @@ class Projects extends Component {
                     <Modal>
                         <h1>Criar projeto</h1>
 
-                        <form onSubmit={this.handleCreateProject}>
+                        <form onSubmit={handleSubmit}>
                             <span>NOME</span>
 
                             <input
                                 name="newProject"
-                                value={newProject}
-                                onChange={this.handleInputChange}
+                                //value={newProject}
+                                //onChange={this.handleInputChange}
+                                onChange={handleChange}
+                                value={values.newProject}
                                 type="newProject"
                                 autoFocus
                             />
+
+                            {!!errors.newProject && (
+                                <Error>{errors.newProject}</Error>
+                            )}
 
                             <Button size="big" type="submit">
                                 Salvar
@@ -141,7 +148,34 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
     bindActionCreators({ ...ProjectsActions, ...MembersActions }, dispatch);
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+export default compose(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    ),
+    withFormik({
+        mapPropsToValues: () => ({
+            newProject: ""
+        }),
+
+        validateOnChange: true,
+        validateOnBlur: false,
+
+        validationSchema: Yup.object().shape({
+            newProject: Yup.string()
+                .required("Campo obrigatório")
+                .min(2, "Nome muito curto")
+                .max(20, "Nome muito grande")
+        }),
+
+        handleSubmit: (values, { props, resetForm }) => {
+            const { newProject } = values;
+
+            const { createProjectRequest } = props;
+
+            createProjectRequest(newProject);
+
+            resetForm();
+        }
+    })
 )(Projects);

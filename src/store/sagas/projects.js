@@ -27,9 +27,9 @@ export function* createProjects({ title }) {
 
 export function* deleteProject({ id }) {
     try {
-        yield call(api.delete, `projects/${id}`);
-        const response = yield call(api.get, "projects");
-        yield put(ProjectsActions.getProjectSuccess(response.data));
+        //yield call(api.delete, `projects/${id}`);
+
+        yield put(ProjectsActions.deleteProjectSuccess(id));
 
         yield put(
             toastrActions.add({

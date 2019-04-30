@@ -48,7 +48,7 @@ class TeamSwitcher extends Component {
     render() {
         const { teams, openTeamModal, closeTeamModal, signOut } = this.props;
         const { newTeam } = this.state;
-
+        console.tron.log(teams.active.name);
         return (
             <Container>
                 <TeamList>
@@ -56,6 +56,9 @@ class TeamSwitcher extends Component {
                         <Team
                             key={team.id}
                             onClick={() => this.handleTeamSelect(team)}
+                            isSelected={
+                                teams.active.name === team.name ? "select" : ""
+                            }
                         >
                             <img
                                 alt={team.name}

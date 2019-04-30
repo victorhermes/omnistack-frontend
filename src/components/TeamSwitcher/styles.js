@@ -1,4 +1,14 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+const isSelected = {
+    select: css`
+        img {
+            border-radius: 30%;
+            border: 1px solid #ffffff;
+            opacity: 1;
+        }
+    `
+};
 
 export const Container = styled.aside`
     background: #202225;
@@ -14,7 +24,9 @@ export const TeamList = styled.div`
     flex-direction: column;
 `;
 
-export const Team = styled.button`
+export const Team = styled.button.attrs({
+    type: "button"
+})`
     border: 0;
     background: transparent;
     margin: 0 0 8px;
@@ -29,6 +41,8 @@ export const Team = styled.button`
     &:hover img {
         border-radius: 30%;
     }
+
+    ${props => isSelected[props.isSelected || ""]};
 `;
 
 export const NewTeam = styled.button`
