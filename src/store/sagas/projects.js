@@ -27,7 +27,7 @@ export function* createProjects({ title }) {
 
 export function* deleteProject({ id }) {
     try {
-        //yield call(api.delete, `projects/${id}`);
+        yield call(api.delete, `projects/${id}`);
 
         yield put(ProjectsActions.deleteProjectSuccess(id));
 
