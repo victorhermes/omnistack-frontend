@@ -7,11 +7,12 @@ import MembersActions from "~/store/ducks/members";
 import Button from "~/styles/components/Button";
 import Modal from "~/components/Modal";
 import Select from "react-select";
-import { MembersList } from "./styles";
+import { MembersList, Invite } from "./styles";
 
 class Members extends Component {
     state = {
-        roles: []
+        roles: [],
+        invite: ""
     };
 
     async componentDidMount() {
@@ -26,17 +27,41 @@ class Members extends Component {
 
     handleRolesChange = (id, roles) => {
         const { updateMemberRequest } = this.props;
-
+        console.tron.log(roles);
         updateMemberRequest(id, roles);
+    };
+
+    handleInputChange = e => {
+        this.setState({ [e.target.name]: e.target.value });
+    };
+
+    handleInvite = e => {
+        e.preventDefault();
+
+        const { inviteMemberRequest } = this.props;
+        const { invite } = this.state;
+
+        inviteMemberRequest(invite);
     };
 
     render() {
         const { closeMembersModal, members } = this.props;
-        const { roles } = this.state;
+        const { roles, invite } = this.state;
 
         return (
             <Modal size="big">
                 <h1>Membros</h1>
+
+                <Invite onSubmit={this.handleInvite}>
+                    <input
+                        name="invite"
+                        placeholder="Convidar para o time"
+                        value={invite}
+                        onChange={this.handleInputChange}
+                    />
+
+                    <Button type="submit">Convidar</Button>
+                </Invite>
 
                 <form>
                     <MembersList>

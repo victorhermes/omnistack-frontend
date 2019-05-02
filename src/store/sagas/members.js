@@ -30,3 +30,23 @@ export function* updateMember({ id, roles }) {
         );
     }
 }
+
+export function* inviteMember({ email }) {
+    try {
+        yield call(api.post, "invites", { invites: [email] });
+
+        yield put(
+            toastrActions.add({
+                type: "success",
+                title: "Convite enviado"
+            })
+        );
+    } catch {
+        yield put(
+            toastrActions.add({
+                type: "error",
+                title: "Houve um problema"
+            })
+        );
+    }
+}
