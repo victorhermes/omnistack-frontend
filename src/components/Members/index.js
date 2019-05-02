@@ -24,6 +24,12 @@ class Members extends Component {
         this.setState({ roles: response.data });
     }
 
+    handleRolesChange = (id, roles) => {
+        const { updateMemberRequest } = this.props;
+
+        updateMemberRequest(id, roles);
+    };
+
     render() {
         const { closeMembersModal, members } = this.props;
         const { roles } = this.state;
@@ -44,6 +50,9 @@ class Members extends Component {
                                     options={roles}
                                     getOptionLabel={role => role.name}
                                     getOptionValue={role => role.id}
+                                    onChange={value =>
+                                        this.handleRolesChange(member.id, value)
+                                    }
                                 />
                             </li>
                         ))}
