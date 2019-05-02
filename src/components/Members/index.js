@@ -1,22 +1,32 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-
+import api from "~/services/api";
 import MembersActions from "~/store/ducks/members";
 
 import Button from "~/styles/components/Button";
 import Modal from "~/components/Modal";
+import Select from "react-select";
 import { MembersList } from "./styles";
 
 class Members extends Component {
-    componentDidMount() {
+    state = {
+        roles: []
+    };
+
+    async componentDidMount() {
         const { getMembersRequest } = this.props;
 
         getMembersRequest();
+
+        const response = await api.get("roles");
+
+        this.setState({ roles: response.data });
     }
 
     render() {
         const { closeMembersModal, members } = this.props;
+        const { roles } = this.state;
 
         return (
             <Modal size="big">
@@ -27,6 +37,14 @@ class Members extends Component {
                         {members.data.map(member => (
                             <li key={member.id}>
                                 <strong>{member.user.name}</strong>
+
+                                <Select
+                                    isMulti
+                                    value={member.roles}
+                                    options={roles}
+                                    getOptionLabel={role => role.name}
+                                    getOptionValue={role => role.id}
+                                />
                             </li>
                         ))}
                     </MembersList>
