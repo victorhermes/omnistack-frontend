@@ -94,7 +94,7 @@ class Projects extends Component {
                         </Project>
                     ))
                 ) : (
-                    <h2 align="center">Nada por aqui</h2>
+                    <h2 align="center">Não há nada em {activeTeam.name}</h2>
                 )}
 
                 {projects.projectModalOpen && (

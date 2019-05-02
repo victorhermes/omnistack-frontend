@@ -48,7 +48,7 @@ class TeamSwitcher extends Component {
     render() {
         const { teams, openTeamModal, closeTeamModal, signOut } = this.props;
         const { newTeam } = this.state;
-        console.tron.log(teams.active.name);
+
         return (
             <Container>
                 <TeamList>
