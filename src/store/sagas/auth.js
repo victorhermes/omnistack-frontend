@@ -29,6 +29,33 @@ export function* signIn({ email, password, remember }) {
     }
 }
 
+export function* signUp({ name, email, password }) {
+    try {
+        const response = yield call(api.post, "users", {
+            name,
+            email,
+            password
+        });
+
+        console.log(response.data);
+
+        localStorage.setItem("@Token:token", response.data.token);
+
+        yield put(AuthActions.signInSuccess(response.data.token));
+        yield put(push("/"));
+    } catch (err) {
+        yield put(
+            toastrActions.add({
+                type: "error",
+                title: "Falha no login",
+                message: "Você foi convidade para algum time?"
+            })
+        );
+        console.log(err);
+        yield put(AuthActions.signInFailure());
+    }
+}
+
 export function* signOut() {
     localStorage.removeItem("@Token:token");
     localStorage.removeItem("@Token:team");
