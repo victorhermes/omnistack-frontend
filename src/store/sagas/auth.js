@@ -29,11 +29,11 @@ export function* signIn({ email, password, remember }) {
     }
 }
 
-export function* signUp({ name, email, password }) {
+export function* signUp({ email, name, password }) {
     try {
         const response = yield call(api.post, "users", {
-            name,
             email,
+            name,
             password
         });
 

@@ -21,7 +21,9 @@ class TeamSwitcher extends Component {
     componentDidMount() {
         const { getTeamsRequest } = this.props;
 
-        getTeamsRequest();
+        if (getTeamsRequest) {
+            getTeamsRequest();
+        }
     }
 
     handleTeamSelect = team => {
@@ -57,7 +59,10 @@ class TeamSwitcher extends Component {
                             key={team.id}
                             onClick={() => this.handleTeamSelect(team)}
                             isSelected={
-                                teams.active.name === team.name ? "select" : ""
+                                teams.active !== null &&
+                                teams.active.name === team.name
+                                    ? "select"
+                                    : ""
                             }
                         >
                             <img

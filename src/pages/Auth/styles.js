@@ -34,6 +34,13 @@ export const SignForm = styled.form`
         margin-top: 15px;
     }
 
+    a {
+        text-align: center;
+        color: #7289da;
+        padding-top: 15px;
+        text-decoration: none;
+    }
+
     input {
         height: 40px;
         padding: 10px;

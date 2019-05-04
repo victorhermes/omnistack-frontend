@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import AuthActions from "~/store/ducks/auth";
 import { withFormik } from "formik";
 import * as Yup from "yup";
+import { Link } from "react-router-dom";
 import Gif from "~/elips.svg";
 import Button from "~/styles/components/Button";
 import Error from "~/styles/components/Error";
@@ -70,6 +71,8 @@ const SignIn = ({
             >
                 {auth ? <img src={Gif} alt="Carregando..." /> : "ENTRAR"}
             </Button>
+
+            <Link to="/signup"> Criar conta </Link>
         </SignForm>
     </Container>
 );
@@ -104,7 +107,7 @@ export default compose(
                 .required("Campo obrigatório"),
             password: Yup.string()
                 .required("Campo obrigatório")
-                .min(5, "Senha muito curta!")
+                .min(1, "Senha muito curta!")
                 .max(20, "Senha muito longa!")
             /*.matches(/[a-z]/, "Digita ao menos uma letra minúscula")
                 .matches(/[A-Z]/, "Digite ao menos uma letra maiúscula")

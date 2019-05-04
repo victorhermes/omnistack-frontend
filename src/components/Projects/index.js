@@ -17,7 +17,7 @@ class Projects extends Component {
     static propTypes = {
         activeTeam: PropTypes.shape({
             name: PropTypes.string
-        }).isRequired
+        })
     };
 
     /*state = {
@@ -27,7 +27,7 @@ class Projects extends Component {
     componentDidMount() {
         const { getProjectRequest, activeTeam } = this.props;
 
-        if (activeTeam) {
+        if (activeTeam || getProjectRequest) {
             getProjectRequest();
         }
     }
@@ -72,7 +72,7 @@ class Projects extends Component {
         return (
             <Container>
                 <header>
-                    <h1>{activeTeam.name}</h1>
+                    <h1>{activeTeam ? activeTeam.name : ""}</h1>
 
                     <div>
                         <Button size="small" onClick={openProjectModal}>
@@ -94,7 +94,11 @@ class Projects extends Component {
                         </Project>
                     ))
                 ) : (
-                    <h2 align="center">Não há nada em {activeTeam.name}</h2>
+                    <h2 align="center">
+                        {!activeTeam
+                            ? "Não há nada em:" + activeTeam.name
+                            : "Não há nada aqui!"}
+                    </h2>
                 )}
 
                 {projects.projectModalOpen && (
