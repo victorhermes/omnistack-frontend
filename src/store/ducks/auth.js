@@ -8,7 +8,9 @@ const { Types, Creators } = createActions({
     signInSuccess: ["token", "email"],
     signInFailure: null,
     signOut: null,
-    signUpRequest: ["email", "name", "password"]
+    signUpRequest: ["email", "name", "password"],
+    recoverPasswordRequest: ["email", "redirect_url"],
+    resetPasswordRequest: ["token", "password", "password_confirmation"]
 });
 
 export const AuthTypes = Types;
@@ -40,11 +42,21 @@ export const failure = state => {
 
 export const logout = state => state.merge({ signedIn: false, token: null });
 
+export const recoverRequest = state => {
+    return state.merge({ loading: true });
+};
+
+export const resetRequest = state => {
+    return state.merge({ loading: true });
+};
+
 /* Reducers to types */
 
 export const reducer = createReducer(INITIAL_STATE, {
     [Types.SIGN_IN_REQUEST]: request,
     [Types.SIGN_IN_SUCCESS]: success,
     [Types.SIGN_IN_FAILURE]: failure,
-    [Types.SIGN_OUT]: logout
+    [Types.SIGN_OUT]: logout,
+    [Types.RECOVER_PASSWORD_REQUEST]: recoverRequest,
+    [Types.RESET_PASSWORD_REQUEST]: resetRequest
 });

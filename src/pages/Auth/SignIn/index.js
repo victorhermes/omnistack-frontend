@@ -73,6 +73,7 @@ const SignIn = ({
             </Button>
 
             <Link to="/signup"> Criar conta </Link>
+            <Link to="/recover"> Recuperar senha</Link>
         </SignForm>
     </Container>
 );

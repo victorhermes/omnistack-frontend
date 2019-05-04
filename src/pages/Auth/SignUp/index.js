@@ -80,7 +80,8 @@ export default compose(
         mapPropsToValues: () => ({
             email: "",
             name: "",
-            password: ""
+            password: "",
+            passwordConfirm: ""
         }),
 
         validateOnChange: true,

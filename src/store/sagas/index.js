@@ -1,6 +1,12 @@
 import { all, takeLatest } from "redux-saga/effects";
 
-import { signIn, signOut, signUp } from "./auth";
+import {
+    signIn,
+    signOut,
+    signUp,
+    recoverPassword,
+    resetPassword
+} from "./auth";
 import { AuthTypes } from "../ducks/auth";
 
 import { getTeams, createTeam } from "./teams";
@@ -17,6 +23,8 @@ export default function* rootSaga() {
         takeLatest(AuthTypes.SIGN_IN_REQUEST, signIn),
         takeLatest(AuthTypes.SIGN_OUT, signOut),
         takeLatest(AuthTypes.SIGN_UP_REQUEST, signUp),
+        takeLatest(AuthTypes.RECOVER_PASSWORD_REQUEST, recoverPassword),
+        takeLatest(AuthTypes.RESET_PASSWORD_REQUEST, resetPassword),
 
         takeLatest(TeamsTypes.GET_TEAMS_REQUEST, getTeams),
         takeLatest(TeamsTypes.CREATE_TEAM_REQUEST, createTeam),

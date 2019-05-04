@@ -56,6 +56,67 @@ export function* signUp({ email, name, password }) {
     }
 }
 
+export function* recoverPassword({ email, redirect_url }) {
+    try {
+        yield call(api.post, "passwords", {
+            email,
+            redirect_url
+        });
+
+        yield put(
+            toastrActions.add({
+                type: "success",
+                title: "E-mail enviado",
+                message: "Confira seu e-mail para recuperar sua senha"
+            })
+        );
+
+        yield put(AuthActions.signInFailure());
+    } catch (err) {
+        yield put(
+            toastrActions.add({
+                type: "error",
+                title: "Falha ao recuperar senha",
+                message: "Houve um erro e sua senha não pode ser recuperada"
+            })
+        );
+
+        yield put(AuthActions.signInFailure());
+    }
+}
+
+export function* resetPassword({ token, password, password_confirmation }) {
+    try {
+        yield call(api.put, "passwords", {
+            token,
+            password,
+            password_confirmation
+        });
+
+        yield put(
+            toastrActions.add({
+                type: "success",
+                title: "Sucesso",
+                message: "Sua conta foi redefinida com sucesso"
+            })
+        );
+
+        yield put(AuthActions.signInFailure());
+    } catch (err) {
+        yield put(
+            toastrActions.add({
+                type: "error",
+                title: "Falha ao recuperar senha",
+                message: err.response.data.error.message
+            })
+        );
+
+        console.tron.log(err);
+
+        yield put(AuthActions.signInFailure());
+    }
+}
+
 export function* signOut() {
     localStorage.removeItem("@Token:token");
     localStorage.removeItem("@Token:team");

@@ -27,7 +27,7 @@ class Projects extends Component {
     componentDidMount() {
         const { getProjectRequest, activeTeam } = this.props;
 
-        if (activeTeam || getProjectRequest) {
+        if (activeTeam) {
             getProjectRequest();
         }
     }

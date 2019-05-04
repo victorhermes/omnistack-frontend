@@ -1,5 +1,13 @@
 import styled, { css } from "styled-components";
 
+const isLoading = {
+    loading: css`
+        cursor: not-allowed;
+        pointer-events: none;
+        background: #b9bbbe !important;
+    `
+};
+
 const sizes = {
     small: css`
         height: 28px;
@@ -61,6 +69,7 @@ const Button = styled.button.attrs({
         display: none;
     }
 
+    ${props => isLoading[props.isLoading || ""]};
     ${props => sizes[props.size || "default"]};
     ${props => colors[props.color || "default"]}
 
