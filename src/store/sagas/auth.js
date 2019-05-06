@@ -73,11 +73,12 @@ export function* recoverPassword({ email, redirect_url }) {
 
         yield put(AuthActions.signInFailure());
     } catch (err) {
+        const error = err.response.data.error.message;
         yield put(
             toastrActions.add({
                 type: "error",
-                title: "Falha ao recuperar senha",
-                message: "Houve um erro e sua senha não pode ser recuperada"
+                title: "Erro na operação",
+                message: error
             })
         );
 
@@ -97,17 +98,18 @@ export function* resetPassword({ token, password, password_confirmation }) {
             toastrActions.add({
                 type: "success",
                 title: "Sucesso",
-                message: "Sua conta foi redefinida com sucesso"
+                message: "Sua conta foi redefinida com sucesso."
             })
         );
 
         yield put(AuthActions.signInFailure());
     } catch (err) {
+        const error = err.response.data.error.message;
         yield put(
             toastrActions.add({
                 type: "error",
                 title: "Falha ao recuperar senha",
-                message: err.response.data.error.message
+                message: error
             })
         );
 
