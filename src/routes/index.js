@@ -11,6 +11,7 @@ import SignUp from "~/pages/Auth/SignUp";
 import SignIn from "~/pages/Auth/SignIn";
 import RecoverPassword from "~/pages/Auth/RecoverPassword";
 import ResetPassword from "~/pages/Auth/ResetPassword";
+import Pay from "~/components/Payment";
 
 // Antes era o BrowserRouter do react-router-dom que encapsulava as rotas
 // Como queremos as rotas conectadas com o redux para fazer o controle de rotas, usamos o ConnectedRouter do connected-react-router
@@ -22,6 +23,7 @@ const Routes = () => (
             <Guest path="/signup" component={SignUp} />
             <Guest path="/recover" component={RecoverPassword} />
             <Guest path="/reset" component={ResetPassword} />
+            <Private path="/pay" component={Pay} />
             <Private path="/" exact component={Main} />
         </Switch>
     </ConnectedRouter>

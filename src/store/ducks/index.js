@@ -5,6 +5,7 @@ import { reducer as auth } from "./auth";
 import { reducer as teams } from "./teams";
 import { reducer as projects } from "./projects";
 import { reducer as members } from "./members";
+import { reducer as pay } from "./pay";
 
 export default history =>
     combineReducers({
@@ -13,5 +14,6 @@ export default history =>
         teams,
         projects,
         members,
+        pay,
         router: connectRouter(history)
     });

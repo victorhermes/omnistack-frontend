@@ -18,6 +18,9 @@ import { ProjectsTypes } from "../ducks/projects";
 import { getMembers, updateMember, inviteMember } from "./members";
 import { MembersTypes } from "../ducks/members";
 
+import { createPay } from "./pay";
+import { PayTypes } from "../ducks/pay";
+
 export default function* rootSaga() {
     return yield all([
         takeLatest(AuthTypes.SIGN_IN_REQUEST, signIn),
@@ -40,6 +43,8 @@ export default function* rootSaga() {
         takeLatest(MembersTypes.GET_MEMBERS_REQUEST, getMembers),
         takeLatest(MembersTypes.UPDATE_MEMBER_REQUEST, updateMember),
 
-        takeLatest(MembersTypes.INVITE_MEMBER_REQUEST, inviteMember)
+        takeLatest(MembersTypes.INVITE_MEMBER_REQUEST, inviteMember),
+
+        takeLatest(PayTypes.PAY_REQUEST, createPay)
     ]);
 }
