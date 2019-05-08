@@ -5,10 +5,11 @@ import Immutable from "seamless-immutable";
 
 const { Types, Creators } = createActions({
     payRequest: [
-        "Cardnumber",
-        "card_holder_name",
-        "card_expiration_date",
-        "card_cvv"
+        "CardNumber",
+        "cardHolderName",
+        "cardExpirationDate",
+        "cardCvv",
+        "installments"
     ]
 });
 

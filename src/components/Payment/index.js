@@ -16,33 +16,41 @@ const Payment = ({ handleSubmit, errors, values, handleChange, auth }) => (
                 <span>Número do cartão:</span>
                 <input
                     type="text"
-                    name="Cardnumber"
+                    name="CardNumber"
                     onChange={handleChange}
-                    value={values.Cardnumber}
+                    value={values.CardNumber}
                 />
 
                 <span>Nome (como escrito no cartão):</span>
                 <input
                     type="text"
-                    name="card_holder_name"
+                    name="cardHolderName"
                     onChange={handleChange}
-                    value={values.card_holder_name}
+                    value={values.cardHolderName}
                 />
 
                 <span> Mês de expiração: </span>
                 <input
                     type="text"
-                    name="card_expiration_date"
+                    name="cardExpirationDate"
                     onChange={handleChange}
-                    value={values.card_expiration_date}
+                    value={values.cardExpirationDate}
+                />
+
+                <span> Parcelas: </span>
+                <input
+                    type="text"
+                    name="installments"
+                    onChange={handleChange}
+                    value={values.installments}
                 />
 
                 <span>Código de segurança:</span>
                 <input
                     type="text"
-                    name="card_cvv"
+                    name="cardCvv"
                     onChange={handleChange}
-                    value={values.card_cvv}
+                    value={values.cardCvv}
                 />
 
                 <Button size="big" type="submit">
@@ -66,26 +74,29 @@ export default compose(
     ),
     withFormik({
         mapPropsToValues: () => ({
-            Cardnumber: "",
-            card_holder_name: "",
-            card_expiration_date: "",
-            card_cvv: ""
+            CardNumber: "",
+            cardHolderName: "",
+            cardExpirationDate: "",
+            cardCvv: "",
+            installments: ""
         }),
 
         handleSubmit: (values, { props }) => {
             const {
-                Cardnumber,
-                card_holder_name,
-                card_expiration_date,
-                card_cvv
+                CardNumber,
+                cardHolderName,
+                cardExpirationDate,
+                cardCvv,
+                installments
             } = values;
             const { payRequest } = props;
 
             payRequest(
-                Cardnumber,
-                card_holder_name,
-                card_expiration_date,
-                card_cvv
+                CardNumber,
+                cardHolderName,
+                cardExpirationDate,
+                cardCvv,
+                installments
             );
         }
     })

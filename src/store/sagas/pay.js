@@ -6,24 +6,36 @@ import api from "~/services/api";
 //import PayActions from "../ducks/auth";
 
 export function* createPay({
-    Cardnumber,
-    card_holder_name,
-    card_expiration_date,
-    card_cvv
+    CardNumber,
+    cardHolderName,
+    cardExpirationDate,
+    cardCvv,
+    installments
 }) {
     try {
         yield call(api.post, "pay", {
-            Cardnumber,
-            card_holder_name,
-            card_expiration_date,
-            card_cvv
+            CardNumber,
+            cardHolderName,
+            cardExpirationDate,
+            cardCvv,
+            installments
         });
+
+        yield put(
+            toastrActions.add({
+                type: "success",
+                title: "Pagamento efetuado",
+                message: "Pago com sucesso"
+            })
+        );
     } catch (err) {
+        console.tron.log(err);
+        const error = err.response.data.error.message;
         yield put(
             toastrActions.add({
                 type: "error",
                 title: "Falha no pagamento",
-                message: "Tente novamente"
+                message: error
             })
         );
     }
